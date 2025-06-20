@@ -110,6 +110,22 @@ public class LibroDAO {
 		}
 	}
 	
+	//metod para eliminar un libro
+	public void eliminarLibro(int id) {
+		String sql = "DELETE * FROM libros WHERE id = ?";
+		
+		try (Connection con = Conexion.obtenerConexion();
+			PreparedStatement stmt = con.prepareStatement(sql)) {
+				
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			System.out.println("El libro fue eliminado");
+				
+		} catch (SQLException e) {
+			System.out.println("Error la eliminar el libro" + e.getMessage());
+		}
+	}
+}
 	
 
 
