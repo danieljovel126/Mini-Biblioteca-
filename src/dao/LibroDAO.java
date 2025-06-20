@@ -55,5 +55,34 @@ public class LibroDAO {
 		}
 		return libros;
 	}
-
-}
+	
+	//metodo obtener un libro por id
+	public Libro obtenerLibroPorId(int id) {
+		Libro = null;
+		String sql = "SELECT * FROM libros WHERW id = ?";
+		
+		try (Connection con = Conexion.obtenerConexion();
+			PreparedStatement stmt = con.prepareStatement(sql)) {
+			
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				libro = new Libro(
+						rs.getInt(id),
+						rs.getString("titulo"),
+						rs.getString("autor"),
+						rs.getString("genero"),
+						rs.getString("estado"),
+						rs.getString("ubicacion"),
+						rs.getString("propietario")
+				);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error al obtener el libro" + e.getMessage());
+		
+		}
+		return libro;
+		}
+	}
