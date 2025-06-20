@@ -86,3 +86,37 @@ public class LibroDAO {
 		return libro;
 		}
 	}
+
+	//metodo para actualizar la informacion de un libro
+	public void actualizarLibro(Libro libro) {
+		String sql = "UDDATE libros SET titulo = ?, autor = ?, genero = ?, estado = ?, ubicacion = ?, propietario = ? WHERE id = ?";
+		
+		try (Connection con = Conexion.obtenerConexion();
+			PreparedStatement stmt = con.prepareStatement(sql)) {
+			
+			stmt.setString(1, libro.getTitulo());
+			stmt.setString(2, libro.getAutor());
+			stmt.setString(3, libro.getGenero());
+			stmt.setString(4, libro.getEstado());
+			stmt.setString(5, libro.getUbicacion());
+			stmt.setString(6, libro.getPropietario());
+			stmt.setInt(7, libro.getId());
+			
+			stmt.executeUpdate();
+			System.out.println("libro actualizado");
+			
+		} catch (SQLException e) {
+			System.out.println("Error al actualizar el libro" + e.getMessage());
+		}
+	}
+	
+	
+
+
+
+
+
+
+
+
+
